@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no,
+		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Intentional Binding</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h1>Perceived Time Experiment</h1>
+
+	<p>Press the button whenever you want. You will hear a tone between 1-1000ms
+	after you press it. Your job is to estimate the length of time between
+	the click and its resulting sound.</p>
+
+	<button name="action" type="submit" onclick="phonate()">Play</button>
+	<audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false"></audio>
+
+	<p>Percieved Time: <input id="perceived_time" type="text" name="perceived_time"> </p>
+
+	<button name="done" type="submit" onclick="record()">Submit</button>
+
+	<script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<!-- TODO: Add libraries that you need -->
+
+</body>
+
+	<script>
+		var times = [250, 450, 650];
+		var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
+		var actual_time = 0;
+
+		function phonate()
+		{
+			var randomized_time = times[Math.floor(Math.random()*times.length)];
+			var sound = document.getElementById("audio");
+			actual_time = randomized_time;
+
+			// wait some random amount of time
+			setTimeout(function() {
+				sound.play();
+			}, randomized_time);
+		}
+
+		function record()
+		{
+			var perceived_time = document.getElementById("perceived_time").value;
+			
+			if (isNaN(perceived_time)) {
+				alert("Must input number");
+			}
+			else {
+				console.log("Perceived time: " + perceived_time);
+				console.log("Actual time: " + actual_time)
+
+				// clear previous input for next submission
+				document.getElementById("perceived_time").value = "";
+
+				// add to google spreadsheet
+				cordovaHTTP.get(url + '?atime=' + actual_time + "&ptime=" + perceived_time, {}, {}, function(response) {});
+			}
+		}
+
+	</script>
+
+</html>
