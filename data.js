@@ -2,7 +2,7 @@
 // Purpose: to make a sound phonate after a random amount of time and to record
 //    that in the associated google spreadsheet
 
-var times = [250, 450, 650];
+var times = [200, 250, 300];
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var actual_time = 0;
 
