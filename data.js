@@ -2,15 +2,21 @@
 // Purpose: to make a sound phonate after a random amount of time and to record
 //    that in the associated google spreadsheet
 
-var times = [200, 250, 300];
+// TODO: Have user enter date, time of day (have automated in spreadsheet), 
+//   want initials; have spreadsheet keep track of trial number; condition 
+//   (self and observed)
+// TODO: Tone: 100ms, 1 kilohertz tone, not too loud, but clearly audible
+
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var actual_time = 0;
+var max = 900;
+var min = 100; 
 
 // Purpose: to pick a time randomly and make it sound after x milliseconds
 function phonate()
 {
-	var randomized_time = times[Math.floor(Math.random()*times.length)];
-	var sound = document.getElementById("audio");
+	var randomized_time = [Math.floor(Math.random()*(max-min) + min)];
+	var sound = new Audio('tone_100ms.wave');
 	actual_time = randomized_time;
 
 	// wait some random amount of time
