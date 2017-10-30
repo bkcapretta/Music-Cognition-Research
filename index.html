@@ -34,9 +34,18 @@
 
 	<h1>Perceived Time Experiment</h1>
 
-	<p>Press the button whenever you want. You will hear a tone between 1-1000ms
-	after you press it. Your job is to estimate the length of time between
-	your pressing of the button and the sound.</p>
+	<p>You will make judgements of the duration of the interval between the
+	act of pressing the button and the following tone in milliseconds. The
+	tone will be somewhere between 1 and 1000ms (no longer than one second). 
+	First speak your prediction out loud and then enter it below. </p>
+
+	<div class="dropdown">
+		<button onclick="dropdown()" class="dropbtn">Dropdown</button>
+		<div id="myDropdown" class="dropdown-content">
+			<a href="#">Self</a>
+			<a href="#">Other</a>
+		</div>
+	</div>
 
 	<button name="action" onclick="phonate()">
 		Play
