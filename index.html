@@ -42,18 +42,36 @@
 	</div>
 
 	<div class="user_info">
-
-		<p>Initials: <input id="initials" type="text" name="initials"> </p>
-		<br>
-		<p>Condition (Self/Other): <input id="condition" type="text"> </p>
-		<br>
-		<p>Before/After Synchrony: <input id="timeline" type="text"> </p>
-
+		<form action="experiment.html" method="GET">
+			<p>Initials: <input id="initials" type="text" name="initials"> </p>
+			<br>
+			<p>Condition (Self/Other): <input id="condition" type="text"> </p>
+			<br>
+			<p>Before/After Synchrony: <input id="timeline" type="text"> </p>
+		</form>
 	</div>
 
-	<a href="experiment.html" class="experiment" role="button" onclick="collect()">
-		Next</a>
-	<br>
+	<button class="experiment" role="button" onclick="collect()">
+		Enter</button>
+
+	<div class="entered" id="entered"></div>
+
+	<hr>
+	<h1>Experiment</h1>
+
+	<div class="play">
+		<button class="playbutton" name="action" onclick="phonate()">
+			Play
+		</button>
+	</div>
+	
+	<p>Percieved Time: <input id="perceived_time" type="text" name="perceived_time"> </p>
+
+	<button name="done" onclick="record()">
+		Submit
+	</button>
+
+	
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
