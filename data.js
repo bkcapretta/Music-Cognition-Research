@@ -9,8 +9,7 @@
 
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var actual_time = 0;
-var max = 900;
-var min = 100; 
+var time_list = [100, 250, 400, 550, 700]; 
 
 // Purpose: to pick a time randomly and make it sound after x milliseconds
 function phonate()
