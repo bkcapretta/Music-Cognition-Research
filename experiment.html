@@ -37,23 +37,22 @@
 	<div class="instructions">
 	<p>INSTRUCTIONS: You will make judgements of the duration of the interval
 	between the act of pressing the button and the following tone in milliseconds. 
-	The tone will be somewhere between 1 and 1000ms (no longer than one second). 
-	First speak your prediction out loud and then enter it below. </p>
+	The tone will be somewhere between 1 and 1000ms. Please use the full range. 
+	Remember to say your prediction out loud first, then enter it on the tablet.
+	</p>
 	</div>
 
-	<div class="user_info">
-
-		<p>Initials: <input id="initials" type="text" name="initials"> </p>
-		<br>
-		<p>Condition (Self/Other): <input id="condition" type="text"> </p>
-		<br>
-		<p>Before/After Synchrony: <input id="timeline" type="text"> </p>
-
+	<div class="play">
+		<button class="playbutton" name="action" onclick="phonate()">
+			Play
+		</button>
 	</div>
 
-	<a href="experiment.html" class="experiment" role="button" onclick="collect()">
-		Next</a>
-	<br>
+	<p>Percieved Time: <input id="perceived_time" type="text" name="perceived_time"> </p>
+
+	<button name="done" onclick="record()">
+		Submit
+	</button>
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>

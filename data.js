@@ -10,6 +10,18 @@
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var actual_time = 0;
 var time_list = [100, 250, 400, 550, 700]; 
+var trial_count = 0;
+var initials;
+var condition;
+var timeline;
+
+// Purpose: to collect the user's information
+function collect()
+{
+	initials = document.getElementById("initials").value;
+	condition = document.getElementById("condition").value;
+	timeline = document.getElementById("timeline").value;
+}
 
 // Purpose: to pick a time randomly and make it sound after x milliseconds
 function phonate()
@@ -46,24 +58,6 @@ function record()
 	}
 }
 
-// Purpose: When the user clicks on the button, toggle between hiding and 
-// 	   showing the dropdown content
-function dropdown()
-{
-	document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Purpose: to close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-	if (!event.target.matches('.dropbtn')) {
-		var dropdowns = document.getElementsByClassName("dropdown-content");
-		for (var i = 0; i < dropdowns.length; i++) {
-			var openDropdown = dropdowns[i];
-			if (openDropdown.classList.contains('show')) {
-				openDropdown.classList.remove('show');
-			}
-		}
-	}
-}
+//save time(date)
 
 

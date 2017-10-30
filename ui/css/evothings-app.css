@@ -58,19 +58,22 @@ section::after {
 	display: none;
 }
 
-/* dropdown button */
-.dropbtn {
+.playbutton {
 	background-color: #4CAF50;
-	color: white;
-	padding: 16px;
-	font-size: 16px;
-	border: none;
-	cursor: pointer;
 }
 
-/* dropdown button on hover and focus */
-.dropbtn:hover, .dropbtn:focus {
-	background-color: #3e8e41;
+.instructions {
+	font-size: 30px;
+}
+
+/* dropdown button */
+.dropbtn {
+	
+	color: white;
+	padding: 16px;
+	font-size: 26px;
+	border: none;
+	cursor: pointer;
 }
 
 /* needed to position the dropdown content */
