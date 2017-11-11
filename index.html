@@ -32,52 +32,46 @@
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Perceived Time Experiment</h1>
+	<h2>Perceived Time Experiment</h2>
 
 	<div class="instructions">
 	<p>INSTRUCTIONS: You will make judgements of the duration of the interval
 	between the act of pressing the green "PRESS" button and the following tone 
 	in milliseconds. The tone will occur somewhere between 1 and 1000ms after you
-	press the button (no longer 
-	than one second). After the tone, speak your estimate out loud and then enter it 
-	below. You will go through 30 self-paced trials. For each, please try to
-	give your most accurate guess.</p>
+	press the button (no longer than one second). 1000ms is 1 second and 500ms
+	is 0.5 seconds.</p>
+
+	<p>After the tone, speak your 
+	estimate out loud and then enter it below. You will go through 30 self-paced
+	trials. For each, please try to give your most accurate guess.</p>
 	</div>
 
 	<div class="user_info">
-		<p>Initials: <input id="initials" type="text" name="initials"> </p>
-		<p>Experiment Label (A/B): <input id="condition" type="text"> </p>
-		<!-- Really is checking condition for self/other -->
+		<p>Initials: <input type="text" id="initials" name="initials"> </p>
+		<p>Experiment Label (S/O): <input id="condition" type="text"> </p>
 		<br>
 		<!--<p>Trial (First/Second): <input id="timeline" type="text"> </p>
 		Really tells us if before synchrony or after (don't need this until
 		later)-->
-		<p><i>Press ENTER when you have entered you're information.</i></p>
 	</div>
 
-	<button role="button" onclick="collect()">
-		Enter
-	</button>
+	<p><a href="experiment.html" onclick="
+				collect(document.getElementById('initials').value,
+						document.getElementById('condition').value)">Next page</a></p>
 
-	<div class="entered" id="entered"></div>
-
+	<!-- Practice section
 	<hr>
-	<h1>Experiment</h1>
-	<div class="count" id="count">Trial: 1/30</div>
-
-	<div class="experiment" id="experiment">
-		<div class="play">
-			<button class="playbutton" name="action" onclick="phonate()">
-				PRESS
-			</button>
-		</div>
-		
-		<p>Percieved Time (ms): <input id="perceived_time" type="number" name="perceived_time"> </p>
-
-		<button name="done" onclick="record()">
-			Submit
+	<h1>Practice</h1>
+	<div class="play">
+		<button class="playbutton" name="action" onclick="practice_phonate()">
+			PRESS
 		</button>
 	</div>
+	<p>Percieved Time (ms): <input id="perceived_time" type="number" name="perceived_time"></p>
+
+	<button name="done" onclick="practice_record()">
+		Submit
+	</button>  -->
 	
 
 	<script src="cordova.js"></script>

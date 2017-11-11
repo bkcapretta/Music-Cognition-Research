@@ -32,30 +32,35 @@
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Perceived Time Experiment</h1>
-
+	<!-- Actual experiment section -->
 	<div class="instructions">
 	<p>INSTRUCTIONS: You will make judgements of the duration of the interval
-	between the act of pressing the button and the following tone in milliseconds. 
-	The tone will be somewhere between 1 and 1000ms. Please use the full range. 
-	Remember to say your prediction out loud first, then enter it on the tablet.
-	</p>
+	between the act of pressing the green "PRESS" button and the following tone 
+	in milliseconds. The tone will occur somewhere between 1 and 1000ms after you
+	press the button (no longer than one second). 1000ms is 1 second and 500ms
+	is 0.5 seconds. After the tone, speak your estimate out loud and then enter 
+	it below. You will go through 30 self-paced trials. For each, please try to 
+	give your most accurate guess.</p>
 	</div>
 
-	<div class="play">
-		<button class="playbutton" name="action" onclick="phonate()">
-			Play
+	<h3>Experiment</h3>
+	<div class="count" id="count">Trial: 1/30</div>
+
+	<div class="experiment" id="experiment">
+		<div class="play">
+			<button class="playbutton" name="action" onclick="phonate()">
+				PRESS
+			</button>
+		</div>
+		
+		<p>Percieved Time (ms): <input id="perceived_time" type="number" name="perceived_time"> </p>
+
+		<button name="done" onclick="record()">
+			Submit
 		</button>
 	</div>
-	
-	<p>Percieved Time: <input id="perceived_time" type="text" name="perceived_time"> </p>
 
-	<button name="done" onclick="record()">
-		Submit
-	</button>
-
-	<br>
-	<button name="home" onclick="home()">Back</button>
+	<p><a href="index.html">Back</a></p>
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
