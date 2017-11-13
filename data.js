@@ -47,23 +47,29 @@ function phonate()
 	}, actual_time);
 }
 
-function evenly_random()
+function practice_record()
 {
-	var randomized_time = time_list[Math.floor(Math.random()*time_list.length)];
-	console.log("I'm in EVENLY_RANDOM()")
-	var num_times = time_table["randomized_time"];
-
-	while (num_times == 2) {
-		console.log("This time (" + randomized_time + ") has been seen twice" +
-			" before");
-		randomized_time = time_list[Math.floor(Math.random()*time_list.length)];
-		num_times = time_table["randomized_time"];
+	var perceived_time = document.getElementById("perceived_time").value;
+	
+	if (isNaN(perceived_time)) {
+		alert("Must input number");
 	}
+	else {
+		// clear previous input for next submission
+		document.getElementById("perceived_time").value = "";
 
-	num_times++;
-	time_table["randomized_time"] = num_times;
+		trial_count++;
+		
+		if (trial_count == 4)
+		{
+			alert("You are ready for the experiment.");
+			initialize();	
+			trial_count = 1;
+		}
 
-	return randomized_time;
+		// adds trial number
+		document.getElementById("count").innerHTML = "Trial: " + trial_count + "/3";
+	}
 }
 
 // Purpose: given the assigned time, save user's perceived time and send
@@ -71,9 +77,7 @@ function evenly_random()
 function record()
 {
 	var perceived_time = document.getElementById("perceived_time").value;
-	var user_info = window.location.search;
 	
-	// TODO: make screen stay at the lower marker
 	if (isNaN(perceived_time)) {
 		alert("Must input number");
 	}
