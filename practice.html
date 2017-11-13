@@ -32,49 +32,35 @@
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h2>Perceived Time Experiment</h2>
-
+	<!-- Actual experiment section -->
 	<div class="instructions">
 	<p>INSTRUCTIONS: You will make judgements of the duration of the interval
 	between the act of pressing the green "PRESS" button and the following tone 
 	in milliseconds. The tone will occur somewhere between 1 and 1000ms after you
 	press the button (no longer than one second). 1000ms is 1 second and 500ms
-	is 0.5 seconds.</p>
-
-	<p>After the tone, speak your 
-	estimate out loud and then enter it below. You will go through 30 self-paced
-	trials. For each, please try to give your most accurate guess.</p>
+	is 0.5 seconds. After the tone, speak your estimate out loud and then enter 
+	it below. You will go through 30 self-paced trials. For each, please try to 
+	give your most accurate guess.</p>
 	</div>
 
-	<div class="user_info">
-		<p>Initials: <input type="text" id="initials" name="initials"> </p>
-		<p>Experiment Label (S/O): <input id="condition" type="text"> </p>
-		<br>
-		<!--<p>Trial (First/Second): <input id="timeline" type="text"> </p>
-		Really tells us if before synchrony or after (don't need this until
-		later)-->
-	</div>
+	<h3>Experiment</h3>
+	<div class="count" id="count">Trial: 1/30</div>
 
-	<button name="collect" onclick="collect()">
-		Enter
-	</button>
+	<div class="experiment" id="experiment">
+		<div class="play">
+			<button class="playbutton" name="action" onclick="phonate()">
+				PRESS
+			</button>
+		</div>
+		
+		<p>Percieved Time (ms): <input id="perceived_time" type="number" name="perceived_time"> </p>
 
-	<p><a href="experiment.html">Next page</a></p>
-
-	<!-- Practice section
-	<hr>
-	<h1>Practice</h1>
-	<div class="play">
-		<button class="playbutton" name="action" onclick="practice_phonate()">
-			PRESS
+		<button name="done" onclick="record()">
+			Submit
 		</button>
 	</div>
-	<p>Percieved Time (ms): <input id="perceived_time" type="number" name="perceived_time"></p>
 
-	<button name="done" onclick="practice_record()">
-		Submit
-	</button>  -->
-	
+	<p><a href="index.html">Back</a></p>
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>

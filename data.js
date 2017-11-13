@@ -8,20 +8,23 @@ var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvl
 var actual_time = 0;
 var time_list = [100, 100, 250, 250, 400, 400, 550, 550, 700, 700]; 
 var trial_count = 1;
-var initials = "";
-var condition = "";
-var timeline = "";
 
 function initialize()
 {
-	time_table = {100: 0, 250: 0, 400: 0, 550: 0, 770: 0}
+	time_list = [100, 100, 250, 250, 400, 400, 550, 550, 700, 700];
 }
 
 // Purpose: to collect the user's information
 function collect()
 {
-	initials = document.getElementById("initials").value;
-	condition = document.getElementById("condition").value;
+	var initials = document.getElementById("initials").value;
+	var condition = document.getElementById("condition").value;
+	// var timeline
+
+	cordovaHTTP.get(url + '?atime=INITIALIZE&ptime=INITIALIZE&initials=' + initials + 
+		'&condition=' + condition + '&timeline=INITIALIZE&trial=INITIALIZE', 
+		{}, {}, function(response) {});
+
 	//timeline = document.getElementById("timeline").value;
 	console.log("Initials in collect: " + initials);
 	console.log("Condition in collect: " + condition);
@@ -30,14 +33,18 @@ function collect()
 // Purpose: to pick a time randomly and make it sound after x milliseconds
 function phonate()
 {
-	var randomized_time = time_list[Math.floor(Math.random()*time_list.length)];
+	actual_time = time_list[Math.floor(Math.random()*time_list.length)];
 	var sound = new Audio("http://www.soundjay.com/button/beep-07.wav"); // tone_100ms.wav
-	actual_time = randomized_time;
+
+	var index = time_list.indexOf(actual_time);
+	if (index > -1) {
+    	time_list.splice(index, 1);
+	}
 
 	// wait some random amount of time
 	setTimeout(function() {
 		sound.play();
-	}, randomized_time);
+	}, actual_time);
 }
 
 function evenly_random()
@@ -72,9 +79,6 @@ function record()
 	}
 	else {
 		// testing
-		console.log("Initial: " + initials);
-		console.log("Condition: " + condition);
-		// console.log("Timeline: " + timeline);
 		console.log("Trial count: " + trial_count);
 		console.log("Perceived time: " + perceived_time);
 		console.log("Actual time: " + actual_time)
@@ -84,8 +88,8 @@ function record()
 
 		// add to google spreadsheet
 		cordovaHTTP.get(url + '?atime=' + actual_time + "&ptime=" + perceived_time 
-			+ '&initials=' + initials + '&condition=' + condition + 
-			'&timeline=' + timeline +'&trial=' + trial_count, {}, {}, function(response) {});
+			+ '&initials= ' + '&condition= ' + '&timeline= ' +
+			'&trial=' + trial_count, {}, {}, function(response) {});
 
 		trial_count++;
 		
