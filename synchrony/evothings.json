@@ -1,5 +1,5 @@
 {
-  "name": "asynchrony",
+  "name": "synchrony",
   "version": "1.0.0",
   "title": "Basic Template App",
   "description": "A basic template for a simple Evothings app.",
@@ -12,7 +12,7 @@
   ],
   "plugins": [],
   "index-file": "index.html",
-  "uuid": "e4619691-4f26-4031-8ce1-ecfb054672bf",
+  "uuid": "28231ef5-6756-473a-935f-ec343c0cd27d",
   "icon": "app-icon.png",
   "doc-url": "http://evothings.com/2.2/doc/examples/template-basic-app.html",
   "long-description": "A basic template for a simple Evothings app.",
