@@ -58,7 +58,29 @@ section::after {
 	display: none;
 }
 
+#top,
+#bottom {
+	position: fixed;
+	left: 0;
+	right: 0;
+	height: 50%;
+}
 
+#top {
+	top: 0;
+}
+
+#bottom {
+	bottom: 0;
+}
+
+#participant {
+	background-color: blue;
+}
+
+#experimenter {
+	background-color: red;
+}
 
 
 /*  ----------------------------------------------------------

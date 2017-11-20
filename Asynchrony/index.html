@@ -32,9 +32,24 @@
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>TODO: Add app title</h1>
+	<h1>Activity</h1>
 
-	<p>This is a basic template for an Evothings app.</p>
+	<!-- Needs to be a start button to click to begin experiment, should disappear
+	when clicked so it doesn't take up screen space-->
+
+	<div id="top">
+		<button id="start" onclick="start()"></button>
+		<!-- want this to be a circular button-->
+		<button id="participant" onclick="triggerP()"></button>
+
+	</div>
+
+	<!-- DIVIDER -->
+	
+	<div id="bottom">
+		<button id="experimenter" onclick="triggerE()"></button>
+	
+	</div>
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
