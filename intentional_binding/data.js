@@ -6,19 +6,19 @@
 
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var actual_time = 0;
-var time_list = [100, 100, 250, 250, 400, 400, 550, 550, 700, 700]; 
+var time_list = [100, 100, 100, 100, 100, 100, 250, 250, 250, 250, 250, 250, 400, 400, 400, 400, 400, 400, 550, 550, 550, 550, 550, 550, 700, 700, 700, 700, 700, 700]; 
 var trial_count = 1;
 
 function initialize()
 {
-	time_list = [100, 100, 250, 250, 400, 400, 550, 550, 700, 700];
+	time_list = [100, 100, 100, 100, 100, 100, 250, 250, 250, 250, 250, 250, 400, 400, 400, 400, 400, 400, 550, 550, 550, 550, 550, 550, 700, 700, 700, 700, 700, 700]; 
 }
 
 // Purpose: to collect the user's information
 function collect()
 {
 	var initials = document.getElementById("initials").value;
-	var condition = document.getElementById("condition").value;
+	var condition = determine_condition();
 	// var timeline
 
 	cordovaHTTP.get(url + '?atime=INITIALIZE&ptime=INITIALIZE&initials=' + initials + 
@@ -28,6 +28,18 @@ function collect()
 	//timeline = document.getElementById("timeline").value;
 	console.log("Initials in collect: " + initials);
 	console.log("Condition in collect: " + condition);
+
+	document.getElementById("condition").innerHTML = "Condition assigned: " + condition;
+}
+
+// Purpose: to randomize whether the self or other is going first
+// 		Self: 1
+//		Other: 2
+function determine_condition()
+{
+	var user = Math.floor((Math.random() * 2) + 1);
+	if (user == 1) return "S";
+	else return "O";
 }
 
 // Purpose: to pick a time randomly and make it sound after x milliseconds
