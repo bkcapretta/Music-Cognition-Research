@@ -5,21 +5,51 @@
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var click_window = 250;
 var team_points = 0;
-var total time = 60000;
+
+// TODO: First thing, just make a timer start and have the buttons be clickable
+//       so the points are tracked.
 
 // Purpose: to start the timer and have the experimenter last one minute; have
 //     the buttons randomly appear on either side of the screen
-function start()
+function start(button)
 {
-	// have a timer start
+	button.style.visibility = "hidden";
 	// at random times during the timer (have it sleep ?), make
 	// the buttons appear randomly and then disappear after the window
+
+	setInterval(display(), randomize());
+
+	// should it just be precomputed? so same thing for everyone
+	setTimeout(done(), 60000);
 }
 
 // Purpose: to collect any remaining data at the end of the experiment
 function done()
 {
 	// when time is up, collect team_points and anything else you might need
+	alert("You are done!");
+}
+
+// Purpose: to clear the buttons on the screen after they've been displayed
+//      for 250 seconds
+function clearButton(user)
+{
+	if (user == 1) 
+		document.getElementById("participant").style.visibility = "hidden";
+	else document.getElementById("experimenter").style.visibility = "hidden";
+}
+
+// Purpose: to display the appropriate button (experimenter's OR participant's)
+//     on the correct side of the screen for 250 milliseconds
+function display()
+{
+	// randomize which participant sees the button (1: participant, 2: experimenter)
+	var user = Math.floor((Math.random() * 2) + 1);
+	if (user == 1) 
+		document.getElementById("participant").style.visibility = "visible";
+	else document.getElementById("experimenter").style.visibility = "visibile";
+
+	setTimeout(clearButton(user), 250);
 }
 
 // Purpose: to generate a random number that determines how long the user waits
@@ -28,6 +58,9 @@ function randomize()
 {
 	// need a way to figure out a time for each button to randomly appear, but
 	// make sure that over the entire minute, it averages out to be a 600ms wait
+	var randomized_time = 600;
+
+	return randomized_time;
 }
 
 // Purpose: when the participant clicks their button, add a point to team_points

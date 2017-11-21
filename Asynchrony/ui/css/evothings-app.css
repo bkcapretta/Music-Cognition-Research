@@ -76,10 +76,12 @@ section::after {
 
 #participant {
 	background-color: blue;
+	visibility: hidden;
 }
 
 #experimenter {
 	background-color: red;
+	visibility: hidden;
 }
 
 
