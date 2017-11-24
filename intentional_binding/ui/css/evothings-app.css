@@ -78,7 +78,11 @@ section::after {
 	text-align: center;
 }
 
-.count {
+#count {
+	font-size: 30px;
+}
+
+#condition {
 	font-size: 30px;
 }
 

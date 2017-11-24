@@ -48,11 +48,6 @@ function phonate()
 	actual_time = time_list[Math.floor(Math.random()*time_list.length)];
 	var sound = new Audio("http://www.soundjay.com/button/beep-07.wav"); // tone_100ms.wav
 
-	var index = time_list.indexOf(actual_time);
-	if (index > -1) {
-    	time_list.splice(index, 1);
-	}
-
 	// wait some random amount of time
 	setTimeout(function() {
 		sound.play();
@@ -97,7 +92,13 @@ function record()
 		// testing
 		console.log("Trial count: " + trial_count);
 		console.log("Perceived time: " + perceived_time);
-		console.log("Actual time: " + actual_time)
+		console.log("Actual time: " + actual_time);
+
+		// remove time from list
+		var index = time_list.indexOf(actual_time);
+		if (index > -1) {
+    		time_list.splice(index, 1);
+		}
 
 		// clear previous input for next submission
 		document.getElementById("perceived_time").value = "";
@@ -108,16 +109,17 @@ function record()
 			'&trial=' + trial_count, {}, {}, function(response) {});
 
 		trial_count++;
+		console.log("List: " + time_list);
 		
-		if (trial_count == 11)
+		if (time_list.length == 0)
 		{
-			alert("You finished 10 trials for this block.");
+			alert("You finished 30 trials for this block.");
 			initialize();	
 			trial_count = 1;
 		}
 
 		// adds trial number
-		document.getElementById("count").innerHTML = "Trial: " + trial_count + "/10";
+		document.getElementById("count").innerHTML = "Trial: " + trial_count + "/30";
 	}
 }
 
