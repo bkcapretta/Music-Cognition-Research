@@ -46,8 +46,8 @@ function determine_condition()
 function phonate()
 {
 	actual_time = time_list[Math.floor(Math.random()*time_list.length)];
-	var sound = new Audio("http://www.soundjay.com/button/beep-07.wav"); // tone_100ms.wav
-
+	var sound = new Audio("http://www.soundjay.com/button/beep-07.wav"); 
+	
 	// wait some random amount of time
 	setTimeout(function() {
 		sound.play();
@@ -116,6 +116,8 @@ function record()
 			alert("You finished 30 trials for this block.");
 			initialize();	
 			trial_count = 1;
+			cordovaHTTP.get(url + '?atime=&ptime=&initials=&condition=&timeline=&trial=DONE', 
+				{}, {}, function(response) {});
 		}
 
 		// adds trial number
