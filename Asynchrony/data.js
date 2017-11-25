@@ -6,21 +6,26 @@ var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvl
 var click_window = 250;
 var team_points = 0;
 
-// TODO: First thing, just make a timer start and have the buttons be clickable
-//       so the points are tracked.
+// TODO: figure out how to have a more accurate timer!
 
 // Purpose: to start the timer and have the experimenter last one minute; have
 //     the buttons randomly appear on either side of the screen
-function start(button)
+function start()
 {
-	button.style.visibility = "hidden";
+	var element = document.getElementById("start");
+	element.parentNode.removeChild(element);
+
+	clearButton(1);
+	clearButton(2);
+
+
 	// at random times during the timer (have it sleep ?), make
 	// the buttons appear randomly and then disappear after the window
 
-	setInterval(display(), randomize());
+	//setInterval(display(), randomize());
 
 	// should it just be precomputed? so same thing for everyone
-	setTimeout(done(), 60000);
+	//setTimeout(done(), 60000);
 }
 
 // Purpose: to collect any remaining data at the end of the experiment
@@ -28,10 +33,12 @@ function done()
 {
 	// when time is up, collect team_points and anything else you might need
 	alert("You are done!");
+	// save and report points somehow
+	// cordovaHTTP get request?
+	team_points = 0;
 }
 
-// Purpose: to clear the buttons on the screen after they've been displayed
-//      for 250 seconds
+// Purpose: to make a button on the screen invisible given the user type
 function clearButton(user)
 {
 	if (user == 1) 
@@ -53,7 +60,7 @@ function display()
 }
 
 // Purpose: to generate a random number that determines how long the user waits
-//     to press a button
+//     to press a button (avg during the minute needs to be 600ms)
 function randomize()
 {
 	// need a way to figure out a time for each button to randomly appear, but
@@ -73,6 +80,7 @@ function triggerP()
 	// Send data to another google spreadsheet
 
 	team_points++;
+	console.log("Team points: " + team_points);
 }
 
 // Purpose: when the experimenter clicks their button, add a point to team_points
@@ -85,4 +93,5 @@ function triggerE()
 	// send data to another google spreadsheet
 
 	team_points++;
+	console.log("Team points: " + team_points);
 }

@@ -58,6 +58,42 @@ section::after {
 	display: none;
 }
 
+.top,
+.bottom {
+	position: fixed;
+	left: 0;
+	right: 0;
+	height: 50%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.top {
+	top: 0;
+	background: gray;
+	-moz-transform: rotate(-180deg);  /* FF3.5+ */
+	-o-transform: rotate(-180deg);  /* Opera 10.5 */
+	-webkit-transform: rotate(-180deg);  /* Safari 3.1+, Chrome */
+	position: absolute; 
+}
+
+#participant {
+	background-color: blue;
+}
+
+.bottom {
+	bottom: 0;
+	background: black;
+}
+
+#experimenter {
+	background-color: red;
+}
+
+.space {
+	height: 35%;
+}
+
 
 
 

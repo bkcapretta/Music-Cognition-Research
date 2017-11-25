@@ -18,38 +18,23 @@
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
 
+	<script src="data.js"></script>
+
 </head>
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
-	<script src="data.js"></script>
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
-
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-
-		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
-	</header>
-
-	<h1>Activity</h1>
-
 	
-
-	<div id="top">
-		<!-- Needs to be a start button to click to begin experiment, should disappear
-		when clicked so it doesn't take up screen space-->
-		<button id="start" onclick="start(this)"></button>
-		<!-- want this to be a circular button-->
-		<button id="participant" onclick="triggerP()"></button>
-
+	<div class="top"> <!-- participant -->
+		<div id="start"> <!-- removed once activity begins-->
+			<button onclick="start()">Start</button>
+		</div>
+		<div class="space"></div>
+		<button id="participant" onclick="triggerP()">Press</button>
 	</div>
-
 	<!-- DIVIDER -->
-	
-	<div id="bottom">
-		<button id="experimenter" onclick="triggerE()"></button>
-	
+	<div class="bottom"> <!-- experimenter -->
+		<div class="space"></div>
+		<button id="experimenter" onclick="triggerE()">Press</button>
 	</div>
 
 	<script src="cordova.js"></script>
