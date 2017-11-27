@@ -3,8 +3,8 @@
 //		appearing buttons on the respective sides of the screen for a minute
 
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
-var click_window = 250;
 var team_points = 0;
+var users = [1, 2];
 
 // Purpose: to start the timer and have the experimenter last one minute; have
 //     the buttons randomly appear on either side of the screen
@@ -14,38 +14,10 @@ function start()
 	var element = document.getElementById("start");
 	element.parentNode.removeChild(element);
 
+	clearButton(1);
+	clearButton(2);
+
 	countDown();
-
-	//clearButton(1);
-	//clearButton(2);
-
-	// at random times during the timer (have it sleep ?), make
-	// the buttons appear randomly and then disappear after the window
-}
-
-// Purpose: to track a minute of time during the experiment
-function countDown()
-{
-	var startTime = new Date();
-	var endingTime = new Date(startTime.getTime() + 60000);
-	var x = setInterval(function() {
-		// get current time and find distance between now and end
-		var now = new Date();
-		var distance = endingTime - now;
-
-		// sneakily displace result on screen
-		document.getElementById("countdown").innerHTML = distance;
-
-		// do the button magic
-		//setInterval(display(), randomize());
-
-
-		// if count down is finished, alert user
-		if (distance < 0) {
-			clearInterval(x);
-			done();
-		}
-	}, 1); // update interval every millisecond
 }
 
 // Purpose: to collect any remaining data at the end of the experiment
@@ -59,25 +31,97 @@ function done()
 	team_points = 0;
 }
 
+// Purpose: to track a minute of time during the experiment
+function countDown()
+{
+	var timerON = false;
+	var startTime = new Date();
+	var endingTime = new Date(startTime.getTime() + 60000);
+	
+	var x = setInterval(function() {
+		// get current time and find distance between now and end
+		var current = new Date();
+		var distance = endingTime - current;
+
+		// sneakily displace result on screen
+		document.getElementById("countdown").innerHTML = distance;
+	
+		// do something every 600ms
+	    //var endWindow = new Date(current.getTime() + 600);
+		
+		// if (!timerON) {
+		// 	// display 250ms-long button every 600ms
+		// 	var y = setTimeout(function() {
+		// 		// get current time and find distance between
+		// 		var now = new Date();
+		// 		var click_window = endWindow - now;
+				
+		// 		if (!timerON) {
+		// 			// don't think this is properly giving a random user id
+	 //    			var user = users[Math.floor(Math.random()*users.length)];
+					
+		// 			display(user);
+		// 			timerON = true;
+					
+		// 			// after 250ms, clear button
+		// 			setTimeout(function() {
+		// 				clearButton(user);
+		// 			}, 250);
+		// 		}
+		// 		timerON = false;
+
+		// 		// // if 600ms have gone by, clear interval
+		// 		// if (click_window < 0) {
+		// 		// 	clearInterval(y);
+					
+		// 		// }
+
+		// 	}, 600); // check 600ms window every 1ms
+
+		// }
+
+		// every 600 seconds
+		if (!timerON) {
+			timerON = true;
+			var user = users[Math.floor(Math.random()*users.length)];
+			display(user);
+			
+			setTimeout(function() {	
+				timerON = false;
+				setTimeout(function() {
+					clearButton(user);
+				}, 250);
+			}, 600);
+			
+
+		}
+
+
+		// if count down is finished, alert user
+		if (distance < 0) {
+			clearInterval(x);
+			done();
+		}
+	}, 1); // update interval every millisecond
+}
+
+// Purpose: to display the appropriate button given user type
+//     (1: participant, 2: experimenter)
+function display(user)
+{
+	// randomize which participant sees the button 
+	// var user = Math.floor((Math.random() * 2) + 1);
+	if (user == 1) document.getElementById("participant").style.visibility = "visible";
+	else document.getElementById("experimenter").style.visibility = "visibile";
+}
+
 // Purpose: to make a button on the screen invisible given the user type
+//   (1: participant, 2: experimenter)
 function clearButton(user)
 {
 	if (user == 1) 
 		document.getElementById("participant").style.visibility = "hidden";
 	else document.getElementById("experimenter").style.visibility = "hidden";
-}
-
-// Purpose: to display the appropriate button (experimenter's OR participant's)
-//     on the correct side of the screen for 250 milliseconds
-function display()
-{
-	// randomize which participant sees the button (1: participant, 2: experimenter)
-	var user = Math.floor((Math.random() * 2) + 1);
-	if (user == 1) 
-		document.getElementById("participant").style.visibility = "visible";
-	else document.getElementById("experimenter").style.visibility = "visibile";
-
-	setTimeout(clearButton(user), 250);
 }
 
 // Purpose: to generate a random number that determines how long the user waits
@@ -101,15 +145,6 @@ function triggerP()
 	// Send data to another google spreadsheet
 
 	team_points++;
-	setTimeout(clearButton(1), 250);
-
-	// how can you get the current time on the timer
-	var d = new Date();
-	var sec = d.getSeconds();
-
-
-	var mill = d.getMilliseconds();
-
 	console.log("Team points: " + team_points);
 }
 
@@ -123,7 +158,5 @@ function triggerE()
 	// send data to another google spreadsheet
 
 	team_points++;
-	setTimeout(clearButton(2), 250);
-
 	console.log("Team points: " + team_points);
 }

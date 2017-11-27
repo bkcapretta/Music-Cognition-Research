@@ -83,7 +83,7 @@ section::after {
 
 .bottom {
 	bottom: 0;
-	background: black;
+	background: grey;
 	
 }
 
@@ -93,6 +93,10 @@ section::after {
 
 .space {
 	height: 35%;
+}
+
+#test {
+
 }
 
 /*  ----------------------------------------------------------
