@@ -6,26 +6,46 @@ var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvl
 var click_window = 250;
 var team_points = 0;
 
-// TODO: figure out how to have a more accurate timer!
-
 // Purpose: to start the timer and have the experimenter last one minute; have
 //     the buttons randomly appear on either side of the screen
 function start()
 {
+	// make the start button disappear
 	var element = document.getElementById("start");
 	element.parentNode.removeChild(element);
 
-	clearButton(1);
-	clearButton(2);
+	countDown();
 
+	//clearButton(1);
+	//clearButton(2);
 
 	// at random times during the timer (have it sleep ?), make
 	// the buttons appear randomly and then disappear after the window
+}
 
-	//setInterval(display(), randomize());
+// Purpose: to track a minute of time during the experiment
+function countDown()
+{
+	var startTime = new Date();
+	var endingTime = new Date(startTime.getTime() + 60000);
+	var x = setInterval(function() {
+		// get current time and find distance between now and end
+		var now = new Date();
+		var distance = endingTime - now;
 
-	// should it just be precomputed? so same thing for everyone
-	//setTimeout(done(), 60000);
+		// sneakily displace result on screen
+		document.getElementById("countdown").innerHTML = distance;
+
+		// do the button magic
+		//setInterval(display(), randomize());
+
+
+		// if count down is finished, alert user
+		if (distance < 0) {
+			clearInterval(x);
+			done();
+		}
+	}, 1); // update interval every millisecond
 }
 
 // Purpose: to collect any remaining data at the end of the experiment
@@ -35,6 +55,7 @@ function done()
 	alert("You are done!");
 	// save and report points somehow
 	// cordovaHTTP get request?
+
 	team_points = 0;
 }
 
@@ -80,6 +101,15 @@ function triggerP()
 	// Send data to another google spreadsheet
 
 	team_points++;
+	setTimeout(clearButton(1), 250);
+
+	// how can you get the current time on the timer
+	var d = new Date();
+	var sec = d.getSeconds();
+
+
+	var mill = d.getMilliseconds();
+
 	console.log("Team points: " + team_points);
 }
 
@@ -93,5 +123,7 @@ function triggerE()
 	// send data to another google spreadsheet
 
 	team_points++;
+	setTimeout(clearButton(2), 250);
+
 	console.log("Team points: " + team_points);
 }

@@ -23,18 +23,17 @@
 </head>
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
-	
-	<div class="top"> <!-- participant -->
+	<div class="top"> <!-- experimenter -->
 		<div id="start"> <!-- removed once activity begins-->
 			<button onclick="start()">Start</button>
 		</div>
 		<div class="space"></div>
-		<button id="participant" onclick="triggerP()">Press</button>
+		<button id="experimenter" onclick="triggerE()">Press</button>
 	</div>
 	<!-- DIVIDER -->
-	<div class="bottom"> <!-- experimenter -->
-		<div class="space"></div>
-		<button id="experimenter" onclick="triggerE()">Press</button>
+	<div class="bottom">  <!-- participant -->
+		<div class="space" id="countdown"></div>
+		<button id="participant" onclick="triggerP()">Press</button>
 	</div>
 
 	<script src="cordova.js"></script>
