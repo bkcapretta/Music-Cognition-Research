@@ -24,11 +24,13 @@ function start()
 function done()
 {
 	// when time is up, collect team_points and anything else you might need
-	alert("You are done!");
+	alert("You are done! You will find out your team score at the end of the experiment.");
 	// save and report points somehow
 	// cordovaHTTP get request?
 
 	team_points = 0;
+	display(1);
+	display(2);
 }
 
 // Purpose: to track a minute of time during the experiment
@@ -37,6 +39,7 @@ function countDown()
 	var timerON = false;
 	var startTime = new Date();
 	var endingTime = new Date(startTime.getTime() + 60000);
+	var ms_count = 1;
 	
 	var x = setInterval(function() {
 		// get current time and find distance between now and end
@@ -45,58 +48,21 @@ function countDown()
 
 		// sneakily displace result on screen
 		document.getElementById("countdown").innerHTML = distance;
-	
-		// do something every 600ms
-	    //var endWindow = new Date(current.getTime() + 600);
-		
-		// if (!timerON) {
-		// 	// display 250ms-long button every 600ms
-		// 	var y = setTimeout(function() {
-		// 		// get current time and find distance between
-		// 		var now = new Date();
-		// 		var click_window = endWindow - now;
-				
-		// 		if (!timerON) {
-		// 			// don't think this is properly giving a random user id
-	 //    			var user = users[Math.floor(Math.random()*users.length)];
-					
-		// 			display(user);
-		// 			timerON = true;
-					
-		// 			// after 250ms, clear button
-		// 			setTimeout(function() {
-		// 				clearButton(user);
-		// 			}, 250);
-		// 		}
-		// 		timerON = false;
 
-		// 		// // if 600ms have gone by, clear interval
-		// 		// if (click_window < 0) {
-		// 		// 	clearInterval(y);
-					
-		// 		// }
-
-		// 	}, 600); // check 600ms window every 1ms
-
-		// }
-
-		// every 600 seconds
-		if (!timerON) {
-			timerON = true;
-			var user = users[Math.floor(Math.random()*users.length)];
-			display(user);
-			
-			setTimeout(function() {	
-				timerON = false;
-				setTimeout(function() {
-					clearButton(user);
-				}, 250);
-			}, 600);
-			
-
+		// make a random user's button appear for 400ms every 600ms
+		if (ms_count == 200) {
+			//var user = users[Math.floor(Math.random()*users.length)];
+			display(1);
+			display(2);
 		}
-
-
+		if (ms_count == 600) {
+			clearButton(1);
+			clearButton(2);
+			ms_count = 0;
+		}
+		// avoid making timing predictable
+		ms_count++;
+		
 		// if count down is finished, alert user
 		if (distance < 0) {
 			clearInterval(x);
@@ -111,17 +77,24 @@ function display(user)
 {
 	// randomize which participant sees the button 
 	// var user = Math.floor((Math.random() * 2) + 1);
-	if (user == 1) document.getElementById("participant").style.visibility = "visible";
-	else document.getElementById("experimenter").style.visibility = "visibile";
+	if (user == 1) {
+		document.getElementById("participant").style.visibility = "visible";
+	}
+	else { 
+		document.getElementById("experimenter").style.visibility = "visible";
+	}
 }
 
 // Purpose: to make a button on the screen invisible given the user type
 //   (1: participant, 2: experimenter)
 function clearButton(user)
 {
-	if (user == 1) 
+	if (user == 1) {
 		document.getElementById("participant").style.visibility = "hidden";
-	else document.getElementById("experimenter").style.visibility = "hidden";
+	}
+	else { 
+		document.getElementById("experimenter").style.visibility = "hidden";
+	}
 }
 
 // Purpose: to generate a random number that determines how long the user waits
