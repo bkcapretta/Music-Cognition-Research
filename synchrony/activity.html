@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no,
+		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Basic Template App</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+	<script src="data.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+	
+	<div class="top"> <!-- PARTICIPANT -->
+		<div id="start"> <!-- removed once activity begins-->
+			<button onclick="start()">Start</button>
+		</div>
+		<div class="space" id="interval"></div>
+		<button id="experimenter" onclick="triggerE()">Press</button>
+	</div>
+	<!-- DIVIDER --> 
+	<div class="bottom"> <!-- EXPERIMENTER -->
+		<div class="space" id="countdown"></div>
+		<button id="participant" onclick="triggerP()">Press</button>
+	</div>
+
+	<script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<!-- TODO: Add libraries that you need -->
+
+</body>
+
+</html>

@@ -50,12 +50,12 @@ function countDown()
 		document.getElementById("countdown").innerHTML = distance;
 
 		// make a random user's button appear for 400ms every 600ms
-		if (ms_count == 200) {
+		if (ms_count == 35) {
 			//var user = users[Math.floor(Math.random()*users.length)];
 			display(1);
 			display(2);
 		}
-		if (ms_count == 600) {
+		if (ms_count == 130) {
 			clearButton(1);
 			clearButton(2);
 			ms_count = 0;
@@ -77,24 +77,16 @@ function display(user)
 {
 	// randomize which participant sees the button 
 	// var user = Math.floor((Math.random() * 2) + 1);
-	if (user == 1) {
-		document.getElementById("participant").style.visibility = "visible";
-	}
-	else { 
-		document.getElementById("experimenter").style.visibility = "visible";
-	}
+	if (user == 1) document.getElementById("participant").style.visibility = "visible";
+	else document.getElementById("experimenter").style.visibility = "visible";
 }
 
 // Purpose: to make a button on the screen invisible given the user type
 //   (1: participant, 2: experimenter)
 function clearButton(user)
 {
-	if (user == 1) {
-		document.getElementById("participant").style.visibility = "hidden";
-	}
-	else { 
-		document.getElementById("experimenter").style.visibility = "hidden";
-	}
+	if (user == 1) document.getElementById("participant").style.visibility = "hidden";
+	else document.getElementById("experimenter").style.visibility = "hidden";
 }
 
 // Purpose: to generate a random number that determines how long the user waits

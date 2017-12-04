@@ -2,12 +2,11 @@
 <html>
 
 <head>
-
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no,
 		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Basic Template App</title>
+	<title>Intentional Binding</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -18,21 +17,32 @@
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
 
-	<script src="data.js"></script>
-
 </head>
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
-	
-	<div class="top"> <!-- PARTICIPANT -->
-		<div class="space"></div>
-		<button id="participant" onclick="triggerP()">Press</button>
+	<script src="data.js"></script>
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h2>ACTIVITY S</h2>
+
+	<div class="instructions">
+	<p>INSTRUCTIONS: You will participate in a 1 minute tapping activity with the 
+	experimenter. You will be assigned the <font color="blue">BLUE</font> button. You
+	and the experimenter will be simultaneously tapping along to a visual metronome, 
+	and your goal is to stay in sync with the taps of your partner. You will be
+	judged on how well you synchronize with each other. </p>
+
 	</div>
-	<!-- DIVIDER --> 
-	<div class="bottom"> <!-- EXPERIMENTER -->
-		<div class="space"></div>
-		<button id="experimenter" onclick="triggerE()">Press</button>
-	</div>
+
+	<p><a href="activity.html">Next page</a></p>
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
