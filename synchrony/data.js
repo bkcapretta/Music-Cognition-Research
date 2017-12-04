@@ -3,8 +3,7 @@
 //		each other
 
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
-var p_time;
-var e_time;
+var count = 0;
 
 // Purpose: to start the timer and have the experiment last one minute; have
 //     the buttons alternate being displayed every 500ms
@@ -44,15 +43,17 @@ function countDown()
 		var current = new Date();
 		var distance = endingTime - current;
 
-		// sneakily displace result on screen
+		// sneakily displace overall countdown and interval time on screen
 		document.getElementById("countdown").innerHTML = distance;
 		document.getElementById("interval").innerHTML = ms_count;
+
 		// each user's button appear for 500 alternatively (80 translates to 500ms)
-		if (ms_count == 80) {
+		if (ms_count == 70) { // participant visible
 			clearButton(1);
-			display(2); // happens 54 times		
+			display(2); // happens 68 times		
+			count++;
 		} 
-	    if (ms_count == 160) { // experimenter visible
+	    if (ms_count == 140) { // experimenter visible
 			display(1);
 			clearButton(2);
 			ms_count = 0;
@@ -87,6 +88,7 @@ function clearButton(user)
 //     against when it appeared (visible from 0-80)
 function triggerP()
 {
+	console.log("P hit");
 	// the lower the number, the closer they clicked it to being seen
 	// the higher the number, a slower response time
 	return document.getElementById("interval").innerHTML;
@@ -96,6 +98,7 @@ function triggerP()
 //     against when it appeared (visible from 80-160)
 function triggerE()
 {
+	console.log("E hit");
 	var time = document.getElementById("interval").innerHTML;
 	return (time - 80);
 }
