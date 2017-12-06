@@ -13,7 +13,7 @@ function start()
 	var element = document.getElementById("start");
 	element.parentNode.removeChild(element);
 
-	clearButton(2);
+	// clearButton(2);
 	// start one minute countdown timer
 	countDown();
 }
@@ -25,9 +25,11 @@ function done()
 	alert("You are done! You will find out your team score at the end of the experiment.");
 	// save and report points somehow
 	// cordovaHTTP get request?
+	// ****TODO**** PUT TEXT ON THE SCREEN instead of ALERT
 
 	display(1);
 	display(2);
+
 }
 
 // Purpose: to track a minute of time during the experiment
@@ -47,17 +49,28 @@ function countDown()
 		document.getElementById("countdown").innerHTML = distance;
 		document.getElementById("interval").innerHTML = ms_count;
 
-		// each user's button appear for 500 alternatively (80 translates to 500ms)
-		if (ms_count == 70) { // participant visible
+		// each user's button appear for 500 alternatively (70 translates to 500ms)
+		// if (ms_count == 70) { // participant visible
+		// 	clearButton(1);
+		// 	display(2); // happens 68 times		
+		// 	count++;
+		// } 
+	 //    if (ms_count == 140) { // experimenter visible
+		// 	display(1);
+		// 	clearButton(2);
+		// 	ms_count = 0;
+		// }
+		if (ms_count == 50) {
 			clearButton(1);
-			display(2); // happens 68 times		
-			count++;
-		} 
-	    if (ms_count == 140) { // experimenter visible
-			display(1);
 			clearButton(2);
+		}
+		if (ms_count == 100) {
+			display(1);
+			display(2);
 			ms_count = 0;
 		}
+		// TO DO - try to enable the participant's button
+
 		ms_count++;
 		
 		// if count down is finished, alert user

@@ -99,6 +99,11 @@ section::after {
 	color: gray;
 }
 
+button {
+	height: 80px;
+	width: 200px;
+}
+
 
 /*  ----------------------------------------------------------
 								HEADER
