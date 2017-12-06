@@ -13,9 +13,17 @@ function start()
 	var element = document.getElementById("start");
 	element.parentNode.removeChild(element);
 
-	// clearButton(2);
 	// start one minute countdown timer
 	countDown();
+}
+
+function practiceStart() 
+{
+	// make the start button disappear
+	var element = document.getElementById("start");
+	element.parentNode.removeChild(element);
+
+	practiceCountDown();
 }
 
 // Purpose: to alert users that activity is over; collect any remaining data at 
@@ -35,9 +43,8 @@ function done()
 // Purpose: to track a minute of time during the experiment
 function countDown()
 {
-	var timerON = false;
 	var startTime = new Date();
-	var endingTime = new Date(startTime.getTime() + 60000);
+	var endingTime = new Date(startTime.getTime() + 40000); // 40 seconds
 	var ms_count = 1;
 	
 	var x = setInterval(function() {
@@ -49,17 +56,7 @@ function countDown()
 		document.getElementById("countdown").innerHTML = distance;
 		document.getElementById("interval").innerHTML = ms_count;
 
-		// each user's button appear for 500 alternatively (70 translates to 500ms)
-		// if (ms_count == 70) { // participant visible
-		// 	clearButton(1);
-		// 	display(2); // happens 68 times		
-		// 	count++;
-		// } 
-	 //    if (ms_count == 140) { // experimenter visible
-		// 	display(1);
-		// 	clearButton(2);
-		// 	ms_count = 0;
-		// }
+		// buttons appear for 500ms and then off for 500ms
 		if (ms_count == 50) {
 			clearButton(1);
 			clearButton(2);
@@ -70,13 +67,45 @@ function countDown()
 			ms_count = 0;
 		}
 		// TO DO - try to enable the participant's button
-
 		ms_count++;
 		
 		// if count down is finished, alert user
 		if (distance < 0) {
 			clearInterval(x);
 			done();
+		}
+	}, 1); // update interval every millisecond
+}
+
+function practiceCountDown()
+{
+	var startTime = new Date();
+	var endingTime = new Date(startTime.getTime() + 10000); // 10 seconds
+	var ms_count = 1;
+	
+	var x = setInterval(function() {
+		// get current time and find distance between now and end
+		var current = new Date();
+		var distance = endingTime - current;
+
+		// sneakily displace overall countdown and interval time on screen
+		document.getElementById("countdown").innerHTML = distance;
+
+		// buttons appear for 500ms and then off for 500ms
+		if (ms_count == 50) {
+			clearButton(1);
+		}
+		if (ms_count == 100) {
+			display(1);
+			ms_count = 0;
+		}
+		// TO DO - try to enable the participant's button
+		ms_count++;
+		
+		// if count down is finished, alert user
+		if (distance < 0) {
+			clearInterval(x);
+			alert("DONE PRACTICING! Click below to move forward")
 		}
 	}, 1); // update interval every millisecond
 }
