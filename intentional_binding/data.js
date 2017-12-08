@@ -21,8 +21,8 @@ function collect()
 	var condition = determine_condition();
 	// var timeline
 
-	cordovaHTTP.get(url + '?atime=INITIALIZE&ptime=INITIALIZE&initials=' + initials + 
-		'&condition=' + condition + '&timeline=INITIALIZE&trial=INITIALIZE', 
+	cordovaHTTP.get(url + '?initials=' + initials + '&condition=' + condition + 
+		'&timeline=INITIALIZE&trial_count=INITIALIZE&atime=INITIALIZE&ptime=INITIALIZE',
 		{}, {}, function(response) {});
 
 	//timeline = document.getElementById("timeline").value;

@@ -23,6 +23,10 @@ function done()
 {
 	document.getElementById("interval").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
 	// save and report points somehow
+	cordovaHTTP.get(url + '?acondition=Asynchrony&ascore=' + team_points,
+		{}, {}, function(response) {});
+
+	// function putOnSheet(initials,condition,timeline,trial_count,atime,ptime)
 	// cordovaHTTP get request with team points before resetting
 	team_points = 0;
 	display("P");
@@ -97,10 +101,6 @@ function randomize()
 //      appear and actually clicking it
 function triggerP()
 {
-	// given total time and time of the appeared button (+ total time in some way),
-	// see how close the user is. 
-	// Send data to another google spreadsheet
-
 	team_points++;
 	console.log("Team points: " + team_points);
 }
@@ -110,10 +110,6 @@ function triggerP()
 //      appear and actually clicking it
 function triggerE()
 {
-	// will be very similar to triggerP; how you store info will be different
-	// though
-	// send data to another google spreadsheet
-
 	team_points++;
 	console.log("Team points: " + team_points);
 }

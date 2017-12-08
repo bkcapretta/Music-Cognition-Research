@@ -32,7 +32,9 @@ function done()
 {
 	document.getElementById("interval").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
 	// save and report points somehow
-	// cordovaHTTP get request?
+	cordovaHTTP.get(url + '?acondition=Synchrony&sscore=in sync',
+		{}, {}, function(response) {});
+	
 	clearButton("P");
 	clearButton("E");
 }
