@@ -30,14 +30,11 @@ function practiceStart()
 //          the end of the experiment
 function done()
 {
-	alert("You are done! You will find out your team score at the end of the experiment.");
+	document.getElementById("interval").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
 	// save and report points somehow
 	// cordovaHTTP get request?
-	// ****TODO**** PUT TEXT ON THE SCREEN instead of ALERT
-
-	display(1);
-	display(2);
-
+	clearButton("P");
+	clearButton("E");
 }
 
 // Purpose: to track a minute of time during the experiment
@@ -53,24 +50,24 @@ function countDown()
 		var distance = endingTime - current;
 
 		// sneakily displace overall countdown and interval time on screen
-		document.getElementById("countdown").innerHTML = distance;
-		document.getElementById("interval").innerHTML = ms_count;
+		// try without displaying to screen - realized it doesn't do anything...
+		// still test!!
+		// document.getElementById("countdown").innerHTML = distance;
+		// document.getElementById("interval").innerHTML = ms_count;
 
 		// buttons appear for 500ms and then off for 500ms
 		if (ms_count == 50) {
-			clearButton(1);
-			clearButton(2);
+			clearButton("P");
+			clearButton("E");
 		}
 		if (ms_count == 100) {
-			display(1);
-			display(2);
+			display("P");
+			display("E");
 			ms_count = 0;
 		}
-		// TO DO - try to enable the participant's button
 		ms_count++;
 		
-		// if count down is finished, alert user
-		if (distance < 0) {
+		if (distance < 0) { // if count down is finished, display to screen
 			clearInterval(x);
 			done();
 		}
@@ -93,10 +90,10 @@ function practiceCountDown()
 
 		// buttons appear for 500ms and then off for 500ms
 		if (ms_count == 50) {
-			clearButton(1);
+			clearButton("P");
 		}
 		if (ms_count == 100) {
-			display(1);
+			display("P");
 			ms_count = 0;
 		}
 		// TO DO - try to enable the participant's button
@@ -114,7 +111,7 @@ function practiceCountDown()
 //     (1: participant, 2: experimenter)
 function display(user)
 {
-	if (user == 1) document.getElementById("participant").style.visibility = "visible";
+	if (user == "P") document.getElementById("participant").style.visibility = "visible";
 	else document.getElementById("experimenter").style.visibility = "visible";
 }
 
@@ -122,7 +119,7 @@ function display(user)
 //   (1: participant, 2: experimenter)
 function clearButton(user)
 {
-	if (user == 1) document.getElementById("participant").style.visibility = "hidden";
+	if (user == "P") document.getElementById("participant").style.visibility = "hidden";
 	else document.getElementById("experimenter").style.visibility = "hidden";
 }
 
@@ -138,9 +135,9 @@ function triggerP()
 
 // Purpose: to return how far off the experimenter was from clicking the button
 //     against when it appeared (visible from 80-160)
-function triggerE()
-{
-	console.log("E hit");
-	var time = document.getElementById("interval").innerHTML;
-	return (time - 80);
-}
+// function triggerE()
+// {
+// 	console.log("E hit");
+// 	var time = document.getElementById("interval").innerHTML;
+// 	return (time - 80);
+// }

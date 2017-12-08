@@ -95,10 +95,15 @@ section::after {
 	height: 35%;
 }
 
+#interval {
+	color: black;
+}
+
 button {
 	height:80px;
 	width:200px;
 }
+
 
 /*  ----------------------------------------------------------
 								HEADER

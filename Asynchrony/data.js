@@ -4,7 +4,6 @@
 
 var url = 'https://script.google.com/macros/s/AKfycbyNMG8aeE9v7qAHw66EwIUirikwvlZhRC_lr5htg9V-83ZzGnE/exec';
 var team_points = 0;
-var users = [1, 2];
 
 // Purpose: to start the timer and have the experimenter last one minute; have
 //     the buttons randomly appear on either side of the screen
@@ -13,32 +12,28 @@ function start()
 	// make the start button disappear
 	var element = document.getElementById("start");
 	element.parentNode.removeChild(element);
-
-	clearButton(1);
-	clearButton(2);
-
+	// prepare screen for activity
+	clearButton("P");
+	clearButton("E");
 	countDown();
 }
 
 // Purpose: to collect any remaining data at the end of the experiment
 function done()
 {
-	// when time is up, collect team_points and anything else you might need
-	alert("You are done! You will find out your team score at the end of the experiment.");
+	document.getElementById("interval").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
 	// save and report points somehow
-	// cordovaHTTP get request?
-
+	// cordovaHTTP get request with team points before resetting
 	team_points = 0;
-	display(1);
-	display(2);
+	display("P");
+	display("E");
 }
 
 // Purpose: to track a minute of time during the experiment
 function countDown()
 {
-	var timerON = false;
 	var startTime = new Date();
-	var endingTime = new Date(startTime.getTime() + 60000);
+	var endingTime = new Date(startTime.getTime() + 40000);
 	var ms_count = 1;
 	
 	var x = setInterval(function() {
@@ -47,24 +42,21 @@ function countDown()
 		var distance = endingTime - current;
 
 		// sneakily displace result on screen
-		document.getElementById("countdown").innerHTML = distance;
+		// document.getElementById("countdown").innerHTML = distance;
 
 		// make a random user's button appear for 400ms every 600ms
-		if (ms_count == 35) {
-			//var user = users[Math.floor(Math.random()*users.length)];
-			display(1);
-			display(2);
+		if (ms_count == 50) {
+			display("P");
+			display("E");
 		}
-		if (ms_count == 130) {
-			clearButton(1);
-			clearButton(2);
+		if (ms_count == 100) {
+			clearButton("P");
+			clearButton("E");
 			ms_count = 0;
 		}
-		// avoid making timing predictable
 		ms_count++;
 		
-		// if count down is finished, alert user
-		if (distance < 0) {
+		if (distance < 0) { // if count down is finished, display to screen
 			clearInterval(x);
 			done();
 		}
@@ -77,7 +69,7 @@ function display(user)
 {
 	// randomize which participant sees the button 
 	// var user = Math.floor((Math.random() * 2) + 1);
-	if (user == 1) document.getElementById("participant").style.visibility = "visible";
+	if (user == "P") document.getElementById("participant").style.visibility = "visible";
 	else document.getElementById("experimenter").style.visibility = "visible";
 }
 
@@ -85,7 +77,7 @@ function display(user)
 //   (1: participant, 2: experimenter)
 function clearButton(user)
 {
-	if (user == 1) document.getElementById("participant").style.visibility = "hidden";
+	if (user == "P") document.getElementById("participant").style.visibility = "hidden";
 	else document.getElementById("experimenter").style.visibility = "hidden";
 }
 
