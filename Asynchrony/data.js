@@ -18,12 +18,22 @@ function start()
 	countDown();
 }
 
+function practiceStart() 
+{
+	// make the start button disappear
+	var element = document.getElementById("start");
+	element.parentNode.removeChild(element);
+
+	practiceCountDown();
+}
+
 // Purpose: to collect any remaining data at the end of the experiment
 function done()
 {
-	document.getElementById("interval").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
-	// save and report points somehow
-	cordovaHTTP.get(url + '?acondition=Asynchrony&ascore=' + team_points,
+	document.getElementById("countdown").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
+	// save and report points to spreadsheet
+	cordovaHTTP.get(url + '?initials=&condition=&timeline=middle&trial_count=&atime=&' +
+		'ptime=&acondition=Asynchrony&sscore=in sync&ascore=' + team_points,
 		{}, {}, function(response) {});
 
 	// function putOnSheet(initials,condition,timeline,trial_count,atime,ptime)
@@ -45,9 +55,6 @@ function countDown()
 		var current = new Date();
 		var distance = endingTime - current;
 
-		// sneakily displace result on screen
-		// document.getElementById("countdown").innerHTML = distance;
-
 		// make a random user's button appear for 400ms every 600ms
 		if (ms_count == 50) {
 			display("P");
@@ -63,6 +70,35 @@ function countDown()
 		if (distance < 0) { // if count down is finished, display to screen
 			clearInterval(x);
 			done();
+		}
+	}, 1); // update interval every millisecond
+}
+
+function practiceCountDown()
+{
+	var startTime = new Date();
+	var endingTime = new Date(startTime.getTime() + 10000); // 10 seconds
+	var ms_count = 1;
+	
+	var x = setInterval(function() {
+		// get current time and find distance between now and end
+		var current = new Date();
+		var distance = endingTime - current;
+
+		// buttons appear for 500ms and then off for 500ms
+		if (ms_count == 50) {
+			clearButton("P");
+		}
+		if (ms_count == 120) {
+			display("P");
+			ms_count = 0;
+		}
+		ms_count++;
+		
+		// if count down is finished, alert user
+		if (distance < 0) {
+			clearInterval(x);
+			alert("DONE PRACTICING! Click below to move forward")
 		}
 	}, 1); // update interval every millisecond
 }

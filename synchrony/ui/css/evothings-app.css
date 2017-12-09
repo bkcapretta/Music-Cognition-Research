@@ -95,13 +95,17 @@ section::after {
 	
 }
 
-#interval {
-	color: black;
+#countdown {
+	color: gray;
 }
 
 button {
 	height: 80px;
 	width: 200px;
+}
+
+#interval {
+	color: gray;
 }
 
 

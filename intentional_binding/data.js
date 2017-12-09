@@ -19,15 +19,11 @@ function collect()
 {
 	var initials = document.getElementById("initials").value;
 	var condition = determine_condition();
-	// var timeline
+	var timeline = document.getElementById("timeline").value;
 
 	cordovaHTTP.get(url + '?initials=' + initials + '&condition=' + condition + 
-		'&timeline=INITIALIZE&trial_count=INITIALIZE&atime=INITIALIZE&ptime=INITIALIZE',
-		{}, {}, function(response) {});
-
-	//timeline = document.getElementById("timeline").value;
-	console.log("Initials in collect: " + initials);
-	console.log("Condition in collect: " + condition);
+		'&timeline=' + timeline + '&trial_count= &atime= &ptime= &acondition= '
+		+ '&sscore= &ascore= ', {}, {}, function(response) {});
 
 	document.getElementById("condition").innerHTML = "Condition assigned: " + condition;
 }
@@ -64,7 +60,6 @@ function practice_record()
 	else {
 		// clear previous input for next submission
 		document.getElementById("perceived_time").value = "";
-
 		trial_count++;
 		
 		if (trial_count == 4)
@@ -104,9 +99,10 @@ function record()
 		document.getElementById("perceived_time").value = "";
 
 		// add to google spreadsheet
-		cordovaHTTP.get(url + '?atime=' + actual_time + "&ptime=" + perceived_time 
-			+ '&initials= ' + '&condition= ' + '&timeline= ' +
-			'&trial=' + trial_count, {}, {}, function(response) {});
+		cordovaHTTP.get(url + '?initials= &condition= &timeline= &' + 
+			'trial_count=' + trial_count + '&atime=' + actual_time + 
+			'&ptime=' + perceived_time + '&acondition= &sscore= &ascore= ',
+		{}, {}, function(response) {});
 
 		trial_count++;
 		console.log("List: " + time_list);

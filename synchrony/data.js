@@ -30,9 +30,10 @@ function practiceStart()
 //          the end of the experiment
 function done()
 {
-	document.getElementById("interval").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
+	document.getElementById("countdown").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
 	// save and report points somehow
-	cordovaHTTP.get(url + '?acondition=Synchrony&sscore=in sync',
+	cordovaHTTP.get(url + '?initials=&condition=&timeline=middle&trial_count=&atime=&' +
+		'ptime=&acondition=Synchrony&sscore=in sync&ascore=',
 		{}, {}, function(response) {});
 	
 	clearButton("P");
@@ -51,18 +52,15 @@ function countDown()
 		var current = new Date();
 		var distance = endingTime - current;
 
-		// sneakily displace overall countdown and interval time on screen
-		// try without displaying to screen - realized it doesn't do anything...
-		// still test!!
-		// document.getElementById("countdown").innerHTML = distance;
-		// document.getElementById("interval").innerHTML = ms_count;
+		// get ms_count on screen so triggerP can grab time
+		document.getElementById("interval").innerHTML = ms_count;
 
-		// buttons appear for 500ms and then off for 500ms
-		if (ms_count == 50) {
+		// buttons appear for 300ms ever 600ms
+		if (ms_count == 60) { 
 			clearButton("P");
 			clearButton("E");
 		}
-		if (ms_count == 100) {
+		if (ms_count == 120) { 
 			display("P");
 			display("E");
 			ms_count = 0;
@@ -87,18 +85,14 @@ function practiceCountDown()
 		var current = new Date();
 		var distance = endingTime - current;
 
-		// sneakily displace overall countdown and interval time on screen
-		document.getElementById("countdown").innerHTML = distance;
-
-		// buttons appear for 500ms and then off for 500ms
-		if (ms_count == 50) {
+		// buttons appear for 300ms every 600ms
+		if (ms_count == 60) {
 			clearButton("P");
 		}
-		if (ms_count == 100) {
+		if (ms_count == 120) {
 			display("P");
 			ms_count = 0;
 		}
-		// TO DO - try to enable the participant's button
 		ms_count++;
 		
 		// if count down is finished, alert user
