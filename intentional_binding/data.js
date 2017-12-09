@@ -22,8 +22,8 @@ function collect()
 	var timeline = document.getElementById("timeline").value;
 
 	cordovaHTTP.get(url + '?initials=' + initials + '&condition=' + condition + 
-		'&timeline=' + timeline + '&trial_count= &atime= &ptime= &acondition= '
-		+ '&sscore= &ascore= ', {}, {}, function(response) {});
+		'&timeline=' + timeline + '&trial_count=INITIALIZE&atime=INITIALIZE' +
+		'&ptime=INITIALIZE&diff=INITIALIZE&acondition=&sscore= &ascore= ', {}, {}, function(response) {});
 
 	document.getElementById("condition").innerHTML = "Condition assigned: " + condition;
 }
@@ -54,7 +54,7 @@ function practice_record()
 {
 	var perceived_time = document.getElementById("perceived_time").value;
 	
-	if (isNaN(perceived_time)) {
+	if (isNaN(perceived_time)) { // check if number entered
 		alert("Must input number");
 	}
 	else {
@@ -68,7 +68,6 @@ function practice_record()
 			initialize();	
 			trial_count = 1;
 		}
-
 		// adds trial number
 		document.getElementById("count").innerHTML = "Trial: " + trial_count + "/3";
 	}
@@ -97,26 +96,25 @@ function record()
 
 		// clear previous input for next submission
 		document.getElementById("perceived_time").value = "";
+		var difference = perceived_time - actual_time;
 
 		// add to google spreadsheet
-		cordovaHTTP.get(url + '?initials= &condition= &timeline= &' + 
+		cordovaHTTP.get(url + '?initials=&condition=&timeline=&' + 
 			'trial_count=' + trial_count + '&atime=' + actual_time + 
-			'&ptime=' + perceived_time + '&acondition= &sscore= &ascore= ',
-		{}, {}, function(response) {});
+			'&ptime=' + perceived_time + '&diff=' + difference + 
+			'&acondition=&sscore=&ascore=', {}, {}, function(response) {});
 
 		trial_count++;
-		console.log("List: " + time_list);
 		
-		if (time_list.length == 0)
+		if (time_list.length == 0) // if 30 trials are done
 		{
 			alert("You finished 30 trials for this block.");
-			initialize();	
-			trial_count = 1;
-			cordovaHTTP.get(url + '?atime=&ptime=&initials=&condition=&timeline=&trial=DONE', 
-				{}, {}, function(response) {});
+			cordovaHTTP.get(url + '?initials=DONE&condition=DONE&timeline=DONE' + 
+			'&trial_count=DONE&atime=DONE&ptime=DONE&acondition=&sscore=&ascore=',
+		{}, {}, function(response) {});
 		}
 
-		// adds trial number
+		// updates trial number
 		document.getElementById("count").innerHTML = "Trial: " + trial_count + "/30";
 	}
 }

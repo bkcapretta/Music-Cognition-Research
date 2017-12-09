@@ -13,10 +13,10 @@ function start()
 	var element = document.getElementById("start");
 	element.parentNode.removeChild(element);
 
-	// start one minute countdown timer
 	countDown();
 }
 
+// Purpose: to begin the simulation of practicing the experiment
 function practiceStart() 
 {
 	// make the start button disappear
@@ -30,17 +30,19 @@ function practiceStart()
 //          the end of the experiment
 function done()
 {
+	// print out done message on screen
 	document.getElementById("countdown").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
-	// save and report points somehow
-	cordovaHTTP.get(url + '?initials=&condition=&timeline=middle&trial_count=&atime=&' +
-		'ptime=&acondition=Synchrony&sscore=in sync&ascore=',
-		{}, {}, function(response) {});
+	// report to sheet that experiment is done - send any info that might be useful
+	cordovaHTTP.get(url + '?initials=SYNC&condition=SYNC&timeline=SYNC' +
+		'&trial_count=SYNC&atime=SYNC&ptime=SYNC&diff=SYNC&acondition=Synchrony' +
+		'&sscore=DONE&ascore=', {}, {}, function(response) {});
 	
-	clearButton("P");
+	clearButton("P"); // clear buttons from screen (aesthetic choice)
 	clearButton("E");
 }
 
-// Purpose: to track a minute of time during the experiment
+// Purpose: to track 40 seconds of time during the experiment; make buttons
+//		blink for 300ms every 600ms
 function countDown()
 {
 	var startTime = new Date();
@@ -52,28 +54,29 @@ function countDown()
 		var current = new Date();
 		var distance = endingTime - current;
 
-		// get ms_count on screen so triggerP can grab time
+		// get ms_count on screen so triggerP can grab time (if needed - may not be)
 		document.getElementById("interval").innerHTML = ms_count;
 
-		// buttons appear for 300ms ever 600ms
-		if (ms_count == 60) { 
-			clearButton("P");
-			clearButton("E");
+		// buttons appear for 300ms every 600ms
+		if (ms_count == 60) {  // the ms_count for some reason doesn't exactly
+			clearButton("P");  // translate to the actual number of milliseconds
+			clearButton("E");  // going by
 		}
 		if (ms_count == 120) { 
 			display("P");
 			display("E");
-			ms_count = 0;
+			ms_count = 0; // reset count so the pattern continues
 		}
-		ms_count++;
+		ms_count++; 
 		
-		if (distance < 0) { // if count down is finished, display to screen
+		if (distance < 0) { // if countdown is finished, display to screen
 			clearInterval(x);
 			done();
 		}
 	}, 1); // update interval every millisecond
 }
 
+// Purpose: to simulate the experiment for the participant lasting 10 seconds
 function practiceCountDown()
 {
 	var startTime = new Date();
@@ -98,13 +101,15 @@ function practiceCountDown()
 		// if count down is finished, alert user
 		if (distance < 0) {
 			clearInterval(x);
-			alert("DONE PRACTICING! Click below to move forward")
+			document.getElementById("countdown").innerHTML = "DONE PRACTICING! Click above to move forward";
+			clearButton("P");
+			clearButton("E");
 		}
-	}, 1); // update interval every millisecond
+	}, 1); 
 }
 
 // Purpose: to display the appropriate button given user type
-//     (1: participant, 2: experimenter)
+//     ("P" - participant, "E" - experimenter)
 function display(user)
 {
 	if (user == "P") document.getElementById("participant").style.visibility = "visible";
@@ -112,7 +117,7 @@ function display(user)
 }
 
 // Purpose: to make a button on the screen invisible given the user type
-//   (1: participant, 2: experimenter)
+//   ("P" - participant, "E" - experimenter)
 function clearButton(user)
 {
 	if (user == "P") document.getElementById("participant").style.visibility = "hidden";
@@ -121,13 +126,13 @@ function clearButton(user)
 
 // Purpose: to return how far off the participant was from clicking the button
 //     against when it appeared (visible from 0-80)
-function triggerP()
-{
-	console.log("P hit");
-	// the lower the number, the closer they clicked it to being seen
-	// the higher the number, a slower response time
-	return document.getElementById("interval").innerHTML;
-}
+// function triggerP()
+// {
+// 	console.log("P hit");
+// 	// the lower the number, the closer they clicked it to being seen
+// 	// the higher the number, a slower response time
+// 	return document.getElementById("interval").innerHTML;
+// }
 
 // Purpose: to return how far off the experimenter was from clicking the button
 //     against when it appeared (visible from 80-160)
