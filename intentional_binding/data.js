@@ -18,7 +18,7 @@ function initialize()
 function collect()
 {
 	var initials = document.getElementById("initials").value;
-	var condition = determine_condition();
+	var condition = document.getElementById("condition").value;
 	var timeline = document.getElementById("timeline").value;
 
 	cordovaHTTP.get(url + '?initials=' + initials + '&condition=' + condition + 
@@ -28,15 +28,15 @@ function collect()
 	document.getElementById("condition").innerHTML = "Condition assigned: " + condition;
 }
 
-// Purpose: to randomize whether the self or other is going first
-// 		Self: 1
-//		Other: 2
-function determine_condition()
-{
-	var user = Math.floor((Math.random() * 2) + 1);
-	if (user == 1) return "S";
-	else return "O";
-}
+// // Purpose: to randomize whether the self or other is going first
+// // 		Self: 1
+// //		Other: 2
+// function determine_condition()
+// {
+// 	var user = Math.floor((Math.random() * 2) + 1);
+// 	if (user == 1) return "S";
+// 	else return "O";
+// }
 
 // Purpose: to pick a time randomly and make it sound after x milliseconds
 function phonate()
