@@ -2,12 +2,11 @@
 <html>
 
 <head>
-
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no,
 		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Basic Template App</title>
+	<title>Intentional Binding</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -18,25 +17,29 @@
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
 
-	<script src="data.js"></script>
-
 </head>
 
 <body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
-	<div class="top"> <!-- experimenter -->
-		<div id="start"> <!-- removed once activity begins-->
-			<button onclick="practiceStart()">Start</button>
-		</div>
-		<div class="space" id="interval"></div>
-			<p><a href="activity.html">Done practicing</a></p>
-		<div class="space"></div>
-		
+	<script src="data.js"></script>
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h2>RATING THE ACTIVITY</h2>
+
+	<div class="instructions">
+		<p>How successful do you think you were at synchronizing with the 
+		experimenter on a scale of 1-5 (5 highest)?</p>
+		<input id="rate" type="number" name="rate">
 	</div>
-	<!-- DIVIDER -->
-	<div class="bottom">  
-		<div class="space" id="countdown"></div>
-		<button id="participant"></button>
-	</div>
+
+	<button id="rate_done" onclick="rate()">Done</button> 
 
 	<script src="cordova.js"></script>
 	<script src="libs/evothings/evothings.js"></script>

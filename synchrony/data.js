@@ -31,11 +31,10 @@ function practiceStart()
 function done()
 {
 	// print out done message on screen
-	document.getElementById("countdown").innerHTML = "You are done! You will find out your team score at the end of the experiment.";
-	// report to sheet that experiment is done - send any info that might be useful
-	cordovaHTTP.get(url + '?initials=SYNC&condition=SYNC&timeline=SYNC' +
-		'&trial_count=SYNC&atime=SYNC&ptime=SYNC&diff=SYNC&acondition=Synchrony' +
-		'&sscore=DONE&ascore=', {}, {}, function(response) {});
+	var link = document.createElement('a');
+	link.textContent = 'You are done! You will find out your team score at the end of the experiment.';
+	link.href = 'rate.html';
+	document.getElementById("countdown").appendChild(link);
 	
 	clearButton("P"); // clear buttons from screen (aesthetic choice)
 	clearButton("E");
@@ -123,6 +122,24 @@ function clearButton(user)
 	if (user == "P") document.getElementById("participant").style.visibility = "hidden";
 	else document.getElementById("experimenter").style.visibility = "hidden";
 }
+
+function rate()
+{
+	var scale = document.getElementById("rate").value;
+
+	if (isNaN(scale) || (scale > 5) || (scale < 1)) { // check if number entered
+		alert("Must input a number between 1 and 5");
+	}
+	else {
+		// report to sheet that experiment is done - send any info that might be useful
+		cordovaHTTP.get(url + '?initials=SYNC&condition=SYNC&timeline=SYNC' +
+			'&trial_count=SYNC&atime=SYNC&ptime=SYNC&diff=SYNC&acondition=Synchrony' +
+			'&sscore=' + scale + '&ascore=', {}, {}, function(response) {});
+	}
+}
+
+// These functions would've been helpful had the tablet been able to process 
+// two clicks at the same time
 
 // Purpose: to return how far off the participant was from clicking the button
 //     against when it appeared (visible from 0-80)
