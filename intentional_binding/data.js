@@ -23,9 +23,8 @@ function collect()
 
 	cordovaHTTP.get(url + '?initials=' + initials + '&condition=' + condition + 
 		'&timeline=' + timeline + '&trial_count=INITIALIZE&atime=INITIALIZE' +
-		'&ptime=INITIALIZE&diff=INITIALIZE&acondition=&sscore= &ascore= ', {}, {}, function(response) {});
-
-	document.getElementById("condition").innerHTML = "Condition assigned: " + condition;
+		'&ptime=INITIALIZE&diff=INITIALIZE&poff=INITIALIZE&acondition=&sscore=' +
+		'&ascore=&poss_points=&success=', {}, {}, function(response) {});
 }
 
 // // Purpose: to randomize whether the self or other is going first
@@ -97,12 +96,13 @@ function record()
 		// clear previous input for next submission
 		document.getElementById("perceived_time").value = "";
 		var difference = perceived_time - actual_time;
+		var percent_off = (difference/actual_time) * 100;
 
 		// add to google spreadsheet
 		cordovaHTTP.get(url + '?initials=&condition=&timeline=&' + 
 			'trial_count=' + trial_count + '&atime=' + actual_time + 
-			'&ptime=' + perceived_time + '&diff=' + difference + 
-			'&acondition=&sscore=&ascore=', {}, {}, function(response) {});
+			'&ptime=' + perceived_time + '&diff=' + difference + '&poff=' + percent_off +
+			'&acondition=&sscore=&ascore=&poss_points=&success=', {}, {}, function(response) {});
 
 		trial_count++;
 		
@@ -110,7 +110,7 @@ function record()
 		{
 			alert("You finished 30 trials for this block.");
 			cordovaHTTP.get(url + '?initials=DONE&condition=DONE&timeline=DONE' + 
-			'&trial_count=DONE&atime=DONE&ptime=DONE&acondition=&sscore=&ascore=',
+			'&trial_count=DONE&atime=DONE&ptime=DONE&diff=DONE&acondition=&sscore=&ascore=',
 		{}, {}, function(response) {});
 		}
 

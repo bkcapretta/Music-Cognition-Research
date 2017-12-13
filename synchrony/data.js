@@ -32,7 +32,7 @@ function done()
 {
 	// print out done message on screen
 	var link = document.createElement('a');
-	link.textContent = 'You are done! You will find out your team score at the end of the experiment.';
+	link.textContent = 'You are done! Click here to rate the activity. You will find out your team score at the end of the experiment.';
 	link.href = 'rate.html';
 	document.getElementById("countdown").appendChild(link);
 	
@@ -132,10 +132,13 @@ function rate()
 	}
 	else {
 		// report to sheet that experiment is done - send any info that might be useful
-		cordovaHTTP.get(url + '?initials=SYNC&condition=SYNC&timeline=SYNC' +
-			'&trial_count=SYNC&atime=SYNC&ptime=SYNC&diff=SYNC&acondition=Synchrony' +
-			'&sscore=' + scale + '&ascore=', {}, {}, function(response) {});
+		cordovaHTTP.get(url + '?initials=&condition=SYNC&timeline=SYNC' +
+			'&trial_count=SYNC&atime=SYNC&ptime=SYNC&diff=SYNC&poff=SYNC&acondition=Synchrony' +
+			'&sscore=' + scale + '&ascore=&poss_points=&success=', {}, {}, function(response) {});
+
+		document.getElementById("done").innerHTML = "You are done with the activity.";
 	}
+
 }
 
 // These functions would've been helpful had the tablet been able to process 
